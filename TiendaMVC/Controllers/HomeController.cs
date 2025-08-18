@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TiendaMVC.Models;
 
 namespace TiendaMVC.Controllers
 {
@@ -10,6 +11,15 @@ namespace TiendaMVC.Controllers
     {
         public ActionResult Index()
         {
+            // Crear instancia de tu clase de conexión
+            var db = new DatabaseConnection();
+
+            // Probar conexión y obtener mensaje
+            string mensajeConexion = db.ProbarConexion();
+
+            // Pasar mensaje a la vista
+            ViewBag.MensajeConexion = mensajeConexion;
+
             return View();
         }
 
