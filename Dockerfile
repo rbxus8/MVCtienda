@@ -1,22 +1,18 @@
-# Etapa 1: build
+# Etapa de compilación
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copiar el csproj y restaurar dependencias
-COPY *.csproj .
+# Copiar csproj y restaurar dependencias
+COPY TiendaMVC/TiendaMVC.csproj ./
 RUN dotnet restore
 
-# Copiar todo el código
-COPY . .
-RUN dotnet publish -c Release -o /app
+# Copiar todo el proyecto y publicar
+COPY TiendaMVC/. ./
+RUN dotnet publish -c Release -o /app/out
 
-# Etapa 2: runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+# Etapa de ejecución
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=build /app .
-
-# Puerto expuesto
-EXPOSE 8080
-
-# Comando para iniciar la app
-ENTRYPOINT ["dotnet", "TuProyecto.dll"]
+COPY --from=build /app/out .
+EXPOSE 80
+ENTRYPOINT ["dotnet", "TiendaMVC.dll"]
