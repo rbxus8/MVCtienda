@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 # Copiar el archivo del proyecto primero para aprovechar el cache de Docker
-COPY TiendaMVC/MVCtienda.csproj TiendaMVC/
+COPY TiendaMVC\\TiendaMVC.csproj TiendaMVC/
 
 # Restaurar dependencias
 RUN dotnet restore TiendaMVC/MVCtienda.csproj
