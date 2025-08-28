@@ -3,16 +3,16 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 # Copiar el archivo del proyecto primero para aprovechar el cache de Docker
-COPY MVCtienda.csproj ./
+COPY TiendaMVC/MVCtienda.csproj ./TiendaMVC/
 
 # Restaurar dependencias
-RUN dotnet restore
+RUN dotnet restore ./TiendaMVC/MVCtienda.csproj
 
 # Copiar todo el código fuente
 COPY . .
 
 # Compilar y publicar la aplicación
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish ./TiendaMVC/MVCtienda.csproj -c Release -o /app/publish
 
 # Etapa de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
