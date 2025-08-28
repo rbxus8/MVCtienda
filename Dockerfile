@@ -1,7 +1,7 @@
 # Etapa de build
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY /TiendaMVC/MVCtienda.csproj ./
+COPY TiendaMVC/MVCtienda.csproj ./TiendaMVC/
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
